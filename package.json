@@ -1,0 +1,43 @@
+{
+  "name": "soku-game-recorder",
+  "version": "1.0.0",
+  "description": "The example: soku-game-recorder.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "pub": "vite build && npm publish --access public"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "soku-game"
+  ],
+  "author": "andrew<1062708758@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@soku-conf/eslint-config": "^1.0.3",
+    "@types/lodash": "^4.14.202",
+    "@types/node": "^20.5.1",
+    "eslint": "^8.54.0",
+    "soku-game-backgammon": "^0.3.5",
+    "soku-game-reversi": "^1.4.2",
+    "solid-js": "^1.8.6",
+    "typescript": "^5.1.6",
+    "vite": "^5.0.4",
+    "vite-plugin-solid": "^2.7.2"
+  },
+  "peerDependencies": {
+    "@soku-games/core": "^0.3.1"
+  }
+}
