@@ -40,5 +40,8 @@
   },
   "peerDependencies": {
     "@soku-games/core": "^0.3.1"
+  },
+  "dependencies": {
+    "soku-game-snake": "^1.4.3"
   }
 }
