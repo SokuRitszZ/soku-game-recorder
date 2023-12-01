@@ -1,9 +1,10 @@
-import { createEffect, createSignal, onMount } from 'solid-js';
+import { createSignal, For, Show } from 'solid-js';
 import { buildGame, NewGenerator } from '@soku-games/core';
 
 import '..';
 import 'soku-game-backgammon/core';
 import 'soku-game-backgammon/screen';
+import 'soku-game-snake';
 import 'soku-game-reversi';
 import { Tape } from '../types.ts';
 
@@ -11,13 +12,14 @@ export const App = () => {
   let divRef: HTMLDivElement;
   const [tape, setTape] = createSignal<any>();
 
-  const gameName = 'reversi';
+  const games = ['snake', 'reversi', 'backgammon'] as const;
+  const [gameName, setGameName] = createSignal<string>(games[0]);
 
-  onMount(() => {
+  const handleStartGame = () => {
     const game = buildGame({
-      name: gameName,
-      plugins: [`${gameName}-validator`, {
-        name: `${gameName}-screen`,
+      name: gameName(),
+      plugins: [`${gameName()}-validator`, {
+        name: `${gameName()}-screen`,
         extra: {
           el: divRef,
           couldControl: [true, true],
@@ -34,20 +36,20 @@ export const App = () => {
         },
       }],
     });
-    game?.prepare(NewGenerator(gameName).generate());
+    game?.prepare(NewGenerator(gameName()).generate());
     setTimeout(()=> {
       game?.start();
     });
-  });
+  };
 
   const [controller, setController] = createSignal<any>();
 
   const handleReview = () => {
     if (!tape()) return;
     const game = buildGame({
-      name: gameName,
+      name: gameName(),
       plugins: [{
-        name: `${gameName}-screen`,
+        name: `${gameName()}-screen`,
         extra: {
           el: divRef,
           couldControl: [false, false],
@@ -65,10 +67,6 @@ export const App = () => {
     setController(game?.bundler);
   };
 
-  createEffect(() => {
-    console.log('bundler', controller());
-  });
-
   return (
     <>
       <div
@@ -82,10 +80,37 @@ export const App = () => {
           'align-items': 'center',
         }}
       />
-      <button onClick={handleReview}>Review</button>
-      <button onClick={() => controller()?.start()}>start</button>
-      <button onClick={() => controller()?.next()}>next</button>
-      <button onClick={() => controller()?.back()}>back</button>
+      <div>
+        <div>Choose Your Game.</div>
+        <For each={games}>
+          {(game) => 
+            <button onClick={() => setGameName(game)}>{game}</button>
+          }
+        </For>
+        <button style={{ 'margin-left': '20px' }} onClick={handleStartGame}>start</button>
+      </div>
+      <div>
+        <button onClick={handleReview}>review</button>
+        <button onClick={() => controller()?.start()}>start</button>
+        <button onClick={() => controller()?.next()}>next</button>
+        <button onClick={() => controller()?.back()}>back</button>
+      </div>
+      <Show when={tape()}>
+        <div>
+          Here is your tape.
+        </div>
+        <div>
+          Now you can click `review` & `start`, try to click `next` & `back`.
+        </div>
+        <pre style={{
+          'max-width': '750px',
+          'white-space': 'pre-wrap',
+          'word-break': 'break-all',
+          'font-family': 'monospace',
+        }}>
+          {JSON.stringify(tape(), null, '  ')}
+        </pre>
+      </Show>
     </>
   );
 };

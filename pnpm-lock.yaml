@@ -13,9 +13,6 @@ devDependencies:
   '@soku-conf/eslint-config':
     specifier: ^1.0.3
     version: 1.0.3(typescript@5.3.2)
-  '@types/lodash':
-    specifier: ^4.14.202
-    version: 4.14.202
   '@types/node':
     specifier: ^20.5.1
     version: 20.10.1
@@ -28,6 +25,9 @@ devDependencies:
   soku-game-reversi:
     specifier: ^1.4.2
     version: 1.4.2
+  soku-game-snake:
+    specifier: ^1.4.1
+    version: 1.4.1
   solid-js:
     specifier: ^1.8.6
     version: 1.8.6
@@ -831,10 +831,6 @@ packages:
 
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
-    dev: true
-
-  /@types/lodash@4.14.202:
-    resolution: {integrity: sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==}
     dev: true
 
   /@types/node@20.10.1:
@@ -2443,6 +2439,14 @@ packages:
 
   /soku-game-reversi@1.4.2:
     resolution: {integrity: sha512-vwouzcf3AsIUWceeKiTdXix6ATnSIO9JkC39KY00JUhmXCStz2BacfF+3as6JWd78fR1B7T6As8h23Dr7Vu6HA==}
+    dependencies:
+      '@soku-games/core': 0.3.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: true
+
+  /soku-game-snake@1.4.1:
+    resolution: {integrity: sha512-+wE3/h/Fv+8VifHheIr6Sq9cnyB2nEsStsJ6Ix11LgBRIeNT7rhBP9SGoKzau5zdACaot0XeybZoZ1sCFwtqGA==}
     dependencies:
       '@soku-games/core': 0.3.1
       react: 18.2.0
